@@ -88,6 +88,8 @@ public class EnemyBehaviour : MonoBehaviour
         spriteRenderer.enabled = false;
         _explosion.SetActive(true);
 
+        FindObjectOfType<ScoreManager>().AddPoint(15);
+
         this.enabled = false;
         yield return new WaitForSeconds(1);
         FindObjectOfType<SpawnManager>().enemyDestroyed();

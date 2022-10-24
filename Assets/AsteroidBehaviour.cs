@@ -61,7 +61,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
         transform.position = new Vector3(RandomXPosition, RandomYPosition, 0);
 
-        transform.localScale = new Vector3(Random.Range(0.5f, 1.2f), Random.Range(0.5f, 1.2f), Random.Range(0.5f, 1.2f));
+        transform.localScale = new Vector3(Random.Range(0.5f, 0.8f), Random.Range(0.5f, 0.8f), Random.Range(0.5f, 0.8f));
 
     }
 
@@ -76,6 +76,9 @@ public class AsteroidBehaviour : MonoBehaviour
 
         spriteRenderer.enabled = false;
         _explosion.SetActive(true);
+
+        FindObjectOfType<ScoreManager>().AddPoint(10);
+
         yield return new WaitForSeconds(1);
         FindObjectOfType<SpawnManager>().asteroidDestroyed();
         Destroy(gameObject);
