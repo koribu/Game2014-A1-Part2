@@ -12,10 +12,16 @@ using UnityEngine.SceneManagement;
 
  class GameController : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip _lobbyMusic;
+    AudioSource _MusicSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _MusicSource = GetComponent<AudioSource>();
+        _MusicSource.clip = _lobbyMusic; 
+        _MusicSource.Play();
     }
 
     // Update is called once per frame
