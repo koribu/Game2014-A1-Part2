@@ -41,13 +41,16 @@ public class BulletFactory : MonoBehaviour
                 {
                     bullet.GetComponent<SpriteRenderer>().sprite = playerBulletSprite;
                     bullet.GetComponent<BulletBehaviour>().SetDirection(playerBulletAngle);
+                    bullet.GetComponent<BulletBehaviour>().bulletType = BulletType.PLAYER;
                     bullet.name = "PlayerBullet";
                 }
                 break;
             case BulletType.ENEMY:
                 {
-                    bullet.GetComponent<SpriteRenderer>().sprite = enemyBulletSprite;
-                    bullet.GetComponent<BulletBehaviour>().SetDirection(18);
+                    bullet.GetComponent<SpriteRenderer>().sprite = playerBulletSprite;
+                    bullet.GetComponent<SpriteRenderer>().color = Color.gray;
+                    bullet.GetComponent<BulletBehaviour>().SetDirection(180);
+                    bullet.GetComponent<BulletBehaviour>().bulletType = BulletType.ENEMY;
                     bullet.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
                     bullet.name = "EnemyBullet";
                 }

@@ -8,7 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
     public Boundary verticalBoundry;
     public Boundary screenBounds;
     public float horizontalSpeed, verticalSpeed;
-
+    [SerializeField]
+    private GameObject _explosion;
     [Header("Bullet Properties")]
     public Transform bulletSpawnPoint;
     public float fireRate = 0.2f;
@@ -29,6 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame,
     void Update()
     {
+
         Move();
         CheckBounds();
     }
@@ -63,5 +65,14 @@ public class EnemyBehaviour : MonoBehaviour
         var randomColor = colorList[Random.Range(0, 6)];
         spriteRenderer.material.SetColor("_Color", randomColor);
     
+    }
+
+    public IEnumerator ExplosionCoroutine()
+    {
+        this.enabled = false;
+        spriteRenderer.enabled = false;
+        _explosion.SetActive(true);
+        yield return new WaitForSeconds(2);
+        Destroy(this.gameObject);
     }
 }

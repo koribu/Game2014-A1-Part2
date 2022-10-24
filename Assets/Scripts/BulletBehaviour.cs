@@ -23,6 +23,7 @@ public class BulletBehaviour : MonoBehaviour
     private BulletManager bulletManager;
     private Vector3 velocity;
 
+
     private void Start()
     {
 
@@ -79,6 +80,7 @@ public class BulletBehaviour : MonoBehaviour
             bulletType == BulletType.ENEMY && collision.gameObject.CompareTag("Player"))
         {
             bulletManager.ReturnBullet(this.gameObject, bulletType);
+            collision.GetComponent<EnemyBehaviour>().StartCoroutine("ExplosionCoroutine");
         }
        
     }
