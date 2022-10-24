@@ -77,10 +77,15 @@ public class BulletBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Destroy(this.gameObject);
-        if(bulletType == BulletType.PLAYER)
+        if(bulletType == BulletType.PLAYER && collision.CompareTag("Enemy"))
         {
             bulletManager.ReturnBullet(this.gameObject, bulletType);
             collision.GetComponent<EnemyBehaviour>().StartCoroutine("ExplosionCoroutine");
+        }
+        else if (bulletType == BulletType.PLAYER && collision.CompareTag("Asteroid"))
+        {
+            bulletManager.ReturnBullet(this.gameObject, bulletType);
+            collision.GetComponent<AsteroidBehaviour>().StartCoroutine("ExplosionCoroutine");
         }
         else if (bulletType == BulletType.ENEMY && collision.gameObject.CompareTag("Player"))
         {

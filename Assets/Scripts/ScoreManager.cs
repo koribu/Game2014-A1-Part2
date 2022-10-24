@@ -19,14 +19,12 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     float recoverSpeed;
 
-    Color sliderColor;
+    public Color sliderColor;
     // Start is called before the first frame update
     void Start()
     {
       //  slider = sliderObj.GetComponent<Slider>();
         scoreLabel = GameObject.Find("ScoreLabel").GetComponent<TMP_Text>();
-
-        sliderColor = slider.fillRect.GetComponent<Image>().color;
 
         UpdateScoreLabel();
     }
@@ -38,7 +36,7 @@ public class ScoreManager : MonoBehaviour
 
         if (slider.value < .4)
             slider.fillRect.GetComponent<Image>().color = Color.red;
-        else if (slider.value >= .3 && slider.fillRect.GetComponent<Image>().color == Color.red)
+        else if (slider.value >= .4)// && slider.fillRect.GetComponent<Image>().color == Color.red)
             slider.fillRect.GetComponent<Image>().color = sliderColor;
 
 
@@ -58,6 +56,7 @@ public class ScoreManager : MonoBehaviour
     public void AddPoint(int point)
     {
         score += point;
+        Debug.Log("Point added");
         UpdateScoreLabel();
     }
 

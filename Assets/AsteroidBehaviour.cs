@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class AsteroidBehaviour : MonoBehaviour
 {
     public Boundary horizontalBoundry;
     public Boundary verticalBoundry;
@@ -10,22 +10,19 @@ public class EnemyBehaviour : MonoBehaviour
     public float horizontalSpeed, verticalSpeed;
     [SerializeField]
     private GameObject _explosion;
-    [Header("Bullet Properties")]
-    public Transform bulletSpawnPoint;
-    public float fireRate = 0.2f;
 
-    bool isDestroyed = false;
     private SpriteRenderer spriteRenderer;
-    private BulletManager bulletManager;
+
+    private float rotationSpeed;
+    private bool isDestroyed;
+
     // Start is called before the first frame update
     void Start()
     {
-        bulletManager = FindObjectOfType<BulletManager>();
-
+        rotationSpeed = Mathf.Deg2Rad * Random.Range(-2, 2); 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        ResetEnemy();
+        ResetAsteroid();
 
-        InvokeRepeating("FireBullets", 0.0f, fireRate);
     }
 
     // Update is called once per frame,
@@ -38,20 +35,18 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Move()
     {
+        transform.RotateAround(Vector3.forward, rotationSpeed);
         var horizontalLenght = horizontalBoundry.max - horizontalBoundry.min;
         transform.position = new Vector3(Mathf.PingPong(Time.time * horizontalSpeed, horizontalLenght) -
             horizontalBoundry.max, transform.position.y - verticalSpeed * Time.deltaTime, transform.position.z);
     }
-    void FireBullets()
-    {
-        var bullet = bulletManager.GetBullet(bulletSpawnPoint.position, BulletType.ENEMY);
-    }
+ 
     private void CheckBounds()
     {
         if (transform.position.y < screenBounds.min)
-            ResetEnemy();
+            ResetAsteroid();
     }
-    private void ResetEnemy()
+    private void ResetAsteroid()
     {
         var RandomXPosition = Random.RandomRange(horizontalBoundry.min, horizontalBoundry.max);
         var RandomYPosition = Random.RandomRange(verticalBoundry.min, verticalBoundry.max);
@@ -61,11 +56,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         transform.position = new Vector3(RandomXPosition, RandomYPosition, 0);
 
-        List<Color> colorList = new List<Color>() { Color.red, Color.yellow, Color.magenta, Color.cyan, Color.white, Color.white};
+        transform.localScale = new Vector3(Random.Range(0.5f, 1.2f), Random.Range(0.5f, 1.2f), Random.Range(0.5f, 1.2f));
 
-        var randomColor = colorList[Random.Range(0, 6)];
-        spriteRenderer.material.SetColor("_Color", randomColor);
-    
     }
 
     public IEnumerator ExplosionCoroutine()
@@ -74,12 +66,23 @@ public class EnemyBehaviour : MonoBehaviour
             yield break;
         isDestroyed = true;
         this.enabled = false;
-    
-        CancelInvoke();
+      
         spriteRenderer.enabled = false;
         _explosion.SetActive(true);
-        yield return new WaitForSeconds(5);
-        FindObjectOfType<SpawnManager>().enemyDestroyed();
+        yield return new WaitForSeconds(3);
+        FindObjectOfType<SpawnManager>().asteroidDestroyed();
         Destroy(this.gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            StartCoroutine(ExplosionCoroutine());
+        
+            FindObjectOfType<ScoreManager>().getHit(15);
+        }
+    }
+
+
 }

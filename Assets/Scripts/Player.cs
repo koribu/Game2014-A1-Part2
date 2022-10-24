@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public Boundary boundaryX, boundaryY;
     public float verticalPosition;
 
-    public float verticalSpeed = 10.0f;
+    public float speed = 10.0f;
     public bool usingMobileInput = false;
 
     [SerializeField]
@@ -74,9 +74,11 @@ public class Player : MonoBehaviour
     {
         foreach(var touch in Input.touches)
         {
-           Vector2 destination = new Vector2(camera.ScreenToWorldPoint(touch.position).x, camera.ScreenToWorldPoint(touch.position).y);
-           transform.position = Vector2.Lerp(transform.position, destination, Time.deltaTime * verticalSpeed);
+            Vector2 destination = new Vector2(camera.ScreenToWorldPoint(touch.position).x, camera.ScreenToWorldPoint(touch.position).y);
+            Debug.Log(destination);
+           transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime * speed);
         }
+
     }
 
     void SpawnBorder()
