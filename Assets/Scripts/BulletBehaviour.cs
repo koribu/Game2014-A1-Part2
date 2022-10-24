@@ -90,7 +90,7 @@ public class BulletBehaviour : MonoBehaviour
         else if (bulletType == BulletType.ENEMY && collision.gameObject.CompareTag("Player"))
         {
             bulletManager.ReturnBullet(this.gameObject, bulletType);
-            scoreManager.getHit(5);
+            scoreManager.getHit(15);
             //collision.GetComponent<Player>().StartCoroutine("ExplosionCoroutine");
 
         }

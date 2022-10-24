@@ -24,11 +24,15 @@ public class Player : MonoBehaviour
     private BulletManager bulletManager;
     private Camera camera;
     private ScoreManager scoreManager;
+    private AudioSource audioSource;
+    public AudioClip _explosionClip;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         bulletManager = FindObjectOfType<BulletManager>();
         camera = Camera.main;
 
@@ -108,6 +112,7 @@ public class Player : MonoBehaviour
     void FireBullets()
     {
         var bullet = bulletManager.GetBullet(bulletSpawnPoint.position, BulletType.PLAYER);
+        audioSource.Play();
     }
 
     void CheckBounds()
@@ -137,10 +142,13 @@ public class Player : MonoBehaviour
 
     public IEnumerator ExplosionCoroutine()
     {
-        this.enabled = false;
+        
         CancelInvoke();
         GetComponent<SpriteRenderer>().enabled = false;
         _explosion.SetActive(true);
+        audioSource.clip = _explosionClip;
+        audioSource.Play();
+        this.enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(this.gameObject);
 

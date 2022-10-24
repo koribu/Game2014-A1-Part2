@@ -55,13 +55,14 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(3);
-
-        for (int i = 0; i < enemyGroupNum; i++)
+        int e = enemyGroupNum;
+        int a = asteroidGroupNum;
+        for (int i = 0; i < e; i++)
         {
             var enemy = Instantiate(enemyPrefab);       
             yield return new WaitForSeconds(Random.Range(.5f, 1));
         }
-        for (int i = 0; i < asteroidGroupNum; i++)
+        for (int i = 0; i < a; i++)
         {
             var enemy = Instantiate(asteroidPrefab);
             yield return new WaitForSeconds(Random.Range(.5f, 1));

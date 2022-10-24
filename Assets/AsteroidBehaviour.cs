@@ -16,11 +16,16 @@ public class AsteroidBehaviour : MonoBehaviour
     private float rotationSpeed;
     private bool isDestroyed;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         rotationSpeed = Mathf.Deg2Rad * Random.Range(-2, 2); 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        audioSource = GetComponent<AudioSource>();
+
         ResetAsteroid();
 
     }
@@ -62,16 +67,19 @@ public class AsteroidBehaviour : MonoBehaviour
 
     public IEnumerator ExplosionCoroutine()
     {
-        if (isDestroyed)
+        if (isDestroyed || transform.position.y > screenBounds.max)
             yield break;
         isDestroyed = true;
         this.enabled = false;
-      
+
+        audioSource.Play();
+
         spriteRenderer.enabled = false;
         _explosion.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         FindObjectOfType<SpawnManager>().asteroidDestroyed();
-        Destroy(this.gameObject);
+        Destroy(gameObject);
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -80,7 +88,7 @@ public class AsteroidBehaviour : MonoBehaviour
         {
             StartCoroutine(ExplosionCoroutine());
         
-            FindObjectOfType<ScoreManager>().getHit(15);
+            FindObjectOfType<ScoreManager>().getHit(25);
         }
     }
 

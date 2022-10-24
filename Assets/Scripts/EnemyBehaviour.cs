@@ -14,6 +14,9 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform bulletSpawnPoint;
     public float fireRate = 0.2f;
 
+    public AudioClip _shootingClip, _explosionClip;
+    AudioSource audioSource;
+
     bool isDestroyed = false;
     private SpriteRenderer spriteRenderer;
     private BulletManager bulletManager;
@@ -21,6 +24,8 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         bulletManager = FindObjectOfType<BulletManager>();
+
+        audioSource = GetComponent<AudioSource>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         ResetEnemy();
@@ -45,6 +50,7 @@ public class EnemyBehaviour : MonoBehaviour
     void FireBullets()
     {
         var bullet = bulletManager.GetBullet(bulletSpawnPoint.position, BulletType.ENEMY);
+        audioSource.Play();
     }
     private void CheckBounds()
     {
@@ -70,15 +76,20 @@ public class EnemyBehaviour : MonoBehaviour
 
     public IEnumerator ExplosionCoroutine()
     {
-        if (isDestroyed)
+        if (isDestroyed || transform.position.y > 5)
             yield break;
         isDestroyed = true;
-        this.enabled = false;
-    
+       
+
+        audioSource.clip = _explosionClip;
+        audioSource.Play();
+
         CancelInvoke();
         spriteRenderer.enabled = false;
         _explosion.SetActive(true);
-        yield return new WaitForSeconds(5);
+
+        this.enabled = false;
+        yield return new WaitForSeconds(1);
         FindObjectOfType<SpawnManager>().enemyDestroyed();
         Destroy(this.gameObject);
     }
