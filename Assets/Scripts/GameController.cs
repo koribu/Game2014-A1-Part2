@@ -13,8 +13,9 @@ using UnityEngine.SceneManagement;
  class GameController : MonoBehaviour
 {
     [SerializeField]
-    AudioClip _lobbyMusic;
+    AudioClip _lobbyMusic, _buttonSound;
     AudioSource _MusicSource;
+    float buttonDelayTime = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -31,18 +32,26 @@ using UnityEngine.SceneManagement;
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene(0);
-    }
+        StartCoroutine(DelayedLoadSceneRoutine(buttonDelayTime, 0));
+            }
     public void Instruction()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(DelayedLoadSceneRoutine(buttonDelayTime, 1));
     }
     public void Gameplay()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(DelayedLoadSceneRoutine(buttonDelayTime, 2));
     }
     public void GameOver()
     {
-        SceneManager.LoadScene(3);
+        StartCoroutine(DelayedLoadSceneRoutine(buttonDelayTime, 3));
+    }
+
+    IEnumerator DelayedLoadSceneRoutine(float waitTime, int SceneNum)
+    {
+        _MusicSource.clip = _buttonSound;
+        _MusicSource.Play();
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(SceneNum);
     }
 }
