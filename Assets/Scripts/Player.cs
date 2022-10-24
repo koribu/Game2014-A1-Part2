@@ -14,9 +14,10 @@ public class Player : MonoBehaviour
     public float verticalSpeed = 10.0f;
     public bool usingMobileInput = false;
 
-   
+    [SerializeField]
+    GameObject _explosion;
 
-    [Header("Bullet Properties")]
+     [Header("Bullet Properties")]
     public Transform bulletSpawnPoint;
     public float fireRate = 0.2f;
 
@@ -130,5 +131,17 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector2(boundaryX.min, transform.position.y);
         }
+    }
+
+    public IEnumerator ExplosionCoroutine()
+    {
+        this.enabled = false;
+        CancelInvoke();
+        GetComponent<SpriteRenderer>().enabled = false;
+        _explosion.SetActive(true);
+        yield return new WaitForSeconds(2);
+        Destroy(this.gameObject);
+
+        GameObject.Find("GameController").GetComponent<GameController>().GameOver();
     }
 }

@@ -20,6 +20,8 @@ using UnityEngine.SceneManagement;
     [Range(1, 4)]
     public int enemyNumber = 0;
 
+    public bool _isGameScene = false;
+
     private List<GameObject> enemyList;
     [SerializeField]
     private GameObject enemyPrefab;
@@ -27,6 +29,7 @@ using UnityEngine.SceneManagement;
     // Start is called before the first frame update
     void Start()
     {
+        if(_isGameScene)
         BuildEnemyList();
 
         _MusicSource = GetComponent<AudioSource>();

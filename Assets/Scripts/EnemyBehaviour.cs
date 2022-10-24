@@ -70,6 +70,7 @@ public class EnemyBehaviour : MonoBehaviour
     public IEnumerator ExplosionCoroutine()
     {
         this.enabled = false;
+        CancelInvoke();
         spriteRenderer.enabled = false;
         _explosion.SetActive(true);
         yield return new WaitForSeconds(2);

@@ -181,8 +181,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -46262723
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 254a36dabf600e14e993663cc3483c96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -220,7 +220,7 @@ MonoBehaviour:
   verticalSpeed: 5
   _explosion: {fileID: 1975827454}
   bulletSpawnPoint: {fileID: 3913430256116572847}
-  fireRate: 0.2
+  fireRate: 0.5
 --- !u!50 &3109157214847194236
 Rigidbody2D:
   serializedVersion: 4

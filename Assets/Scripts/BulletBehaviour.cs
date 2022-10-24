@@ -22,11 +22,12 @@ public class BulletBehaviour : MonoBehaviour
 
     private BulletManager bulletManager;
     private Vector3 velocity;
+    private ScoreManager scoreManager;
 
 
     private void Start()
     {
-
+        scoreManager = FindObjectOfType<ScoreManager>();
         bulletManager = FindObjectOfType<BulletManager>();
     }
 
@@ -76,11 +77,17 @@ public class BulletBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Destroy(this.gameObject);
-        if(bulletType == BulletType.PLAYER ||
-            bulletType == BulletType.ENEMY && collision.gameObject.CompareTag("Player"))
+        if(bulletType == BulletType.PLAYER)
         {
             bulletManager.ReturnBullet(this.gameObject, bulletType);
             collision.GetComponent<EnemyBehaviour>().StartCoroutine("ExplosionCoroutine");
+        }
+        else if (bulletType == BulletType.ENEMY && collision.gameObject.CompareTag("Player"))
+        {
+            bulletManager.ReturnBullet(this.gameObject, bulletType);
+            scoreManager.getHit(5);
+            //collision.GetComponent<Player>().StartCoroutine("ExplosionCoroutine");
+
         }
        
     }
