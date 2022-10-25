@@ -1,3 +1,11 @@
+/*--------------------Space Madness----------------------------------
+ * -----------a space shooter game with chaotic atmosphere-----------
+ * Name: Sinan Kolip
+ * Student Number: 101312965
+ * Last Modified Time: 10/24/2022
+ * Bullet manager that prepare bullet pool and provide bullets for player and enemy
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

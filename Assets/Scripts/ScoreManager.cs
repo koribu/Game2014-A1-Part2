@@ -1,3 +1,11 @@
+/*--------------------Space Madness----------------------------------
+ * -----------a space shooter game with chaotic atmosphere-----------
+ * Name: Sinan Kolip
+ * Student Number: 101312965
+ * Last Modified Time: 10/24/2022
+ * Keep track of shield, score and transition to game over scene
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +19,7 @@ using Slider = UnityEngine.UI.Slider;
 public class ScoreManager : MonoBehaviour
 {
     private TMP_Text scoreLabel;
+    public TMP_Text scoreBoard;
     private int score = 0;
 
     [SerializeField]
@@ -25,6 +34,7 @@ public class ScoreManager : MonoBehaviour
     {
       //  slider = sliderObj.GetComponent<Slider>();
         scoreLabel = GameObject.Find("ScoreLabel").GetComponent<TMP_Text>();
+   
 
         UpdateScoreLabel();
     }
@@ -63,6 +73,7 @@ public class ScoreManager : MonoBehaviour
     public void UpdateScoreLabel()
     {
         scoreLabel.text = $"Score: {score}";
+        scoreBoard.text = $"Score: {score}";
     }
 
     public void getHit(int hitAmount)

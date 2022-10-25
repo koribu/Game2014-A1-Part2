@@ -1,3 +1,11 @@
+/*--------------------Space Madness----------------------------------
+ * -----------a space shooter game with chaotic atmosphere-----------
+ * Name: Sinan Kolip
+ * Student Number: 101312965
+ * Last Modified Time: 10/24/2022
+ * Enemy movement, spawn position and attack feature
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,6 +103,7 @@ public class EnemyBehaviour : MonoBehaviour
         this.enabled = false;
         yield return new WaitForSeconds(1);
         FindObjectOfType<SpawnManager>().enemyDestroyed();
+
         Destroy(this.gameObject);
     }
 }

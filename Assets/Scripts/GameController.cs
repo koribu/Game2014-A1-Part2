@@ -7,6 +7,7 @@
 */
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,8 @@ using UnityEngine.SceneManagement;
     AudioSource _MusicSource;
     float buttonDelayTime = 1;
 
+    [SerializeField]
+    GameObject _gameOverCanvas;
 
 
 
@@ -50,7 +53,10 @@ using UnityEngine.SceneManagement;
     }
     public void GameOver()
     {
-        StartCoroutine(DelayedLoadSceneRoutine(buttonDelayTime, 3));
+        _gameOverCanvas.SetActive( true);
+        FindObjectOfType<ScoreManager>().UpdateScoreLabel();
+        Debug.Log("game overed");
+        //StartCoroutine(DelayedLoadSceneRoutine(buttonDelayTime, 3));
     }
 
     IEnumerator DelayedLoadSceneRoutine(float waitTime, int SceneNum)

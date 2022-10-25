@@ -47,8 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lobbyMusic: {fileID: 8300000, guid: 07705049222b7da43af1d27946229597, type: 3}
   _buttonSound: {fileID: 8300000, guid: 29fcf0bee06dc66409542d1406fc6b25, type: 3}
-  enemyNumber: 1
-  enemyPrefab: {fileID: 1719555927580460814, guid: e96936a802d11e04c851ef42b475b59b, type: 3}
+  _gameOverCanvas: {fileID: 0}
 --- !u!82 &1561354958
 AudioSource:
   m_ObjectHideFlags: 0
@@ -63,7 +62,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

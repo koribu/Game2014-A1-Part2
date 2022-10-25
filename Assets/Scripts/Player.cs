@@ -1,3 +1,11 @@
+/*--------------------Space Madness----------------------------------
+ * -----------a space shooter game with chaotic atmosphere-----------
+ * Name: Sinan Kolip
+ * Student Number: 101312965
+ * Last Modified Time: 10/24/2022
+ * Player behaviours such as triggers, movement and shooting
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -160,11 +168,13 @@ public class Player : MonoBehaviour
         _explosion.SetActive(true);
         audioSource.clip = _explosionClip;
         audioSource.Play();
+        GameObject.Find("GameController").GetComponent<GameController>().GameOver();
         this.enabled = false;
         yield return new WaitForSeconds(2);
-        Destroy(this.gameObject);
 
-        GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+      
+
+        Destroy(this.gameObject);
     }
 
     public IEnumerator TripleShotCoroutine()

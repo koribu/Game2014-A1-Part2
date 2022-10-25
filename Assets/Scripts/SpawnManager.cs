@@ -1,3 +1,11 @@
+/*--------------------Space Madness----------------------------------
+ * -----------a space shooter game with chaotic atmosphere-----------
+ * Name: Sinan Kolip
+ * Student Number: 101312965
+ * Last Modified Time: 10/24/2022
+ * spawn management features for enemy, asteroid and power-ups
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +41,8 @@ public class SpawnManager : MonoBehaviour
         {
             if(spawnSequenceList.Count > currentSequence)
                  nextSpawnGroup(spawnSequenceList[++currentSequence]);
+            else
+                GameObject.Find("GameController").GetComponent<GameController>().GameOver();
         }
             
     }
