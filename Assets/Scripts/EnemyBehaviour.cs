@@ -20,6 +20,8 @@ public class EnemyBehaviour : MonoBehaviour
     bool isDestroyed = false;
     private SpriteRenderer spriteRenderer;
     private BulletManager bulletManager;
+
+
     // Start is called before the first frame update
     void Start()
     {

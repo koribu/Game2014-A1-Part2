@@ -17,8 +17,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     GameObject _explosion;
 
-     [Header("Bullet Properties")]
+    [Header("Bullet Properties")]
     public Transform bulletSpawnPoint;
+    public Transform tripleBulletSpawnPointL, tripleBulletSpawnPointR;
     public float fireRate = 0.2f;
 
     private BulletManager bulletManager;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     private ScoreManager scoreManager;
     private AudioSource audioSource;
     public AudioClip _explosionClip;
+    private bool _powerUpActivated;
 
 
     // Start is called before the first frame update
@@ -111,7 +113,17 @@ public class Player : MonoBehaviour
 
     void FireBullets()
     {
-        var bullet = bulletManager.GetBullet(bulletSpawnPoint.position, BulletType.PLAYER);
+        if (!_powerUpActivated)
+        {
+            var bullet = bulletManager.GetBullet(bulletSpawnPoint.position, BulletType.PLAYER);
+        }
+        else
+        {
+            var bullet = bulletManager.GetBullet(bulletSpawnPoint.position, BulletType.PLAYER);
+            bullet = bulletManager.GetBullet(tripleBulletSpawnPointL.position, BulletType.PLAYER);
+            bullet = bulletManager.GetBullet(tripleBulletSpawnPointR.position, BulletType.PLAYER);
+        }
+
         audioSource.Play();
     }
 
@@ -153,5 +165,12 @@ public class Player : MonoBehaviour
         Destroy(this.gameObject);
 
         GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+    }
+
+    public IEnumerator TripleShotCoroutine()
+    {
+        _powerUpActivated = true;
+        yield return new WaitForSeconds(8);
+        _powerUpActivated = false;
     }
 }

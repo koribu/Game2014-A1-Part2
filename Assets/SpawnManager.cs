@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     public bool _isGameScene = false;
 
     [SerializeField]
-    private GameObject enemyPrefab, asteroidPrefab;
+    private GameObject enemyPrefab, asteroidPrefab, bonusPrefab;
 
     public int enemyGroupNum, asteroidGroupNum, currentSequence;
 
@@ -67,7 +67,10 @@ public class SpawnManager : MonoBehaviour
             var enemy = Instantiate(asteroidPrefab);
             yield return new WaitForSeconds(Random.Range(.5f, 1));
         }
-
+        if(currentSequence == 1 || currentSequence == 3)
+        {
+            var bonus = Instantiate(bonusPrefab);
+        }
   
 
     }

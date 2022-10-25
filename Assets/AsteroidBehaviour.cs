@@ -56,7 +56,7 @@ public class AsteroidBehaviour : MonoBehaviour
         var RandomXPosition = Random.RandomRange(horizontalBoundry.min, horizontalBoundry.max);
         var RandomYPosition = Random.RandomRange(verticalBoundry.min, verticalBoundry.max);
 
-        horizontalSpeed = Random.Range(1.0f, 6.0f);
+        horizontalSpeed = Random.Range(0.2f, 3.0f);
         verticalSpeed = Random.Range(1f, 3f);
 
         transform.position = new Vector3(RandomXPosition, RandomYPosition, 0);
